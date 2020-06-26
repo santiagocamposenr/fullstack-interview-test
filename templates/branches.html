@@ -9,7 +9,9 @@
     <ul>
         {% for branch in branches %}
             <li>
-                {{ branch.id }}
+                <a href="{{ url_for('branch', branch_id=branch.id) }}">
+                    {{ branch.id }}
+                </a>
             </li>
         {% endfor %}
     </ul>
