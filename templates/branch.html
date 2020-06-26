@@ -1,0 +1,18 @@
+{% block body %}
+    <h1>Commits</h1>
+    <ul>
+        {% for commit in commits %}
+            <li>
+                {{ commit.id }}
+            </li>
+            <li>{{ commit.message }}</li>
+            <li>{{ commit.timestamp }}</li></br>
+        {% else %}
+            <li>No commits.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ url_for('index') }}"> Return to index</a></br>
+
+
+{% endblock %}

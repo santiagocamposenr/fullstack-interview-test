@@ -16,23 +16,27 @@
 ```
     pip install PyGithub
 ```
-### 5. Requests
+### 5. GitPython
+```
+    pip install gitpython
+```
+### 6. Requests
 ```
     pip install requests
 ```
-### 6. Yaml
+### 7. Yaml
 ```
     pip install PyYAML
 ```
 
-### 7. db in postgreSQL
+### 8. db in postgreSQL
  You'll have to create a db in postgreSQL and indicate it int the files create_tables.py and fill_tables.py
 
 ```
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@localhost:5432/git_test_1' # postgresql://<user_name>:<password>@<host>:<port>/<db_name>
 ```
 
-### 8. File with credentials to log-in in GitHub
+### 9. File with credentials to log-in in GitHub
 
 you must create a file inside *fullstack-interview-test* directory:
 
@@ -45,6 +49,15 @@ creds:
 
 **use the name creds.yaml or the code will not run. If you do so, your information will be safe; git ignores all .yaml files.** 
 **if you choose another name you'll have to modified config.py file inside fullstack-interview-test directory**
+
+
+### 10. Clone the repository to use GitPython
+
+Clone a repository you want to work with to your local system.
+Use the export command to set an environment variable for the absolute path to the Git repository.
+```
+export GIT_REPO_PATH='/home/santiago/Documents/Python/Runahr-Test'
+```
 
 # fullstack-interview-test
 Interview test for fullstack Software Engineers
