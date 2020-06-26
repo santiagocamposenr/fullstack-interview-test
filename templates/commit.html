@@ -1,0 +1,29 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Commit
+{% endblock %}
+
+{% block body %}
+    <h1>Commit</h1>
+    <ul>
+        {% if commit %}
+            <li>Id: {{ commit.id }}</li>
+            <li>Name: {{ commit.name }}</li>
+            <li>Email: {{ commit.email }}</li>
+            <li>Description: {{ commit.message }}</li>
+            <li>Created at: {{ commit.timestamp }}</li>
+            {% if commit.files_changed %}
+                <li>Files changed: {{ commit.files_changed }}</li></br>
+            {% else %} 
+                <li>No files changed</li>
+            {% endif %}
+        {% else %}
+            <li>No commit.</li>
+        {% endif %}
+    </ul>
+    <a href="{{ url_for('index') }}"> Return to index</a></br>
+    <a href="{{ url_for('branches') }}"> Return to list of branches</a></br>
+
+
+{% endblock %}

@@ -3,10 +3,12 @@
     <ul>
         {% for commit in commits %}
             <li>
-                {{ commit.id }}
+                <a href="{{ url_for('commit', branch_id=commit.branch_id, commit_id=commit.id) }}">
+                    {{ commit.id }}
+                </a>
             </li>
-            <li>{{ commit.message }}</li>
-            <li>{{ commit.timestamp }}</li></br>
+            <li>Description: {{ commit.message }}</li>
+            <li>Created at: {{ commit.timestamp }}</li></br>
         {% else %}
             <li>No commits.</li>
         {% endfor %}
