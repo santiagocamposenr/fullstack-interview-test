@@ -30,7 +30,7 @@
 ```
 
 ### 8. db in postgreSQL
- You'll have to create a db in postgreSQL and indicate it int the files create_tables.py and fill_tables.py
+ You'll have to create a db in postgreSQL and indicate it int the files application.py, create_tables.py and fill_tables.py
 
 ```
 app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@localhost:5432/git_test_1' # postgresql://<user_name>:<password>@<host>:<port>/<db_name>
@@ -58,6 +58,14 @@ Use the export command to set an environment variable for the absolute path to t
 ```
 export GIT_REPO_PATH='/home/santiago/Documents/Python/Runahr-Test'
 ```
+
+### 11. Create the table for the Pull Requests data
+
+Run the file create_pr_table.py
+
+### 12. Fill the table with the Pull Requests data
+
+Run the file fill_pr_table.py
 
 # fullstack-interview-test
 Interview test for fullstack Software Engineers

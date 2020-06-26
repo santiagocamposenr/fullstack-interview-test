@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pull Requests
+{% endblock %}
+
+{% block body %}
+    <h1>All Pull Requests</h1>
+
+    <ul>
+        {% for pr in pull_requests %}
+            <li>Author: {{ pr.author }}</li>
+            <li>Title: {{ pr.title }}</li>
+            <li>Description: {{ pr.description }}</li>
+            {% if pr.status == "open" %}
+                <form action="{{ url_for('close_pullrequest') }}" method="post">            
+                    <input  name="pr_title" placeholder="{{pr.title}}" value="{{pr.title}}">
+                    <input type="submit" value="Close Pull Request">
+                </form>
+            {% else %}
+                <li>Status: {{ pr.status }}</li></br>
+            {% endif %}
+        {% endfor %}
+    </ul>
+    <a href="{{ url_for('index') }}"> Return to index</a></br>
+
+{% endblock %}

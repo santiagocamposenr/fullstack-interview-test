@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Pull Request Form
+{% endblock %}
+
+{% block body %}
+    <h1>Create a pull request</h1>
+
+    <form action="{{ url_for('create_pullrequest') }}" method="post">
+        <input name="base" id="base" placeholder="Base branch">
+        <label for="base">Base Branch</label><br>
+        <input name="compare" id="compare" placeholder="Compare branch">
+        <label for="compare">Compare Branch</label><br>
+        <input name="pr_title" id="pr_title" placeholder="Pull Request Title">
+        <label for="pr_title">Title</label><br>
+        <input name="pr_body" id="pr_body" placeholder="Pull Request Description">
+        <label for="pr_body">Description</label><br>
+        
+        <input type="radio" id="Open" name="status" value="open">
+        <label for="Open">Open</label><br>
+        <input type="radio" id="Merge" name="status" value="merge">
+        <label for="Open">Merge</label><br>
+
+        <input type="submit" value="Create Pull Request">
+    </form>
+
+    <a href="{{ url_for('index') }}"> Return to index</a></br>
+
+{% endblock %}
