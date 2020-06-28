@@ -9,7 +9,7 @@ from models import *
 
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@localhost:5432/git_test_1'
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgresql://postgres:postgres@localhost:5432/github_db'
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
 
@@ -84,8 +84,7 @@ def create_pullrequest():
                 except Exception as e:
                     # e.data.message
                     return render_template("error.html", message="Ocurrio un error")
-    # Actualizar la db
-    return pr.state
+    return "Pull Request created"
 
 @app.route("/branches")
 def branches():
@@ -125,6 +124,38 @@ def commit(branch_id,commit_id):
 @app.route("/api/pullrequests")
 def pullrequests_api():
     """ Return the list of pullrequests """
+
+    # Getting the new PRs
+    for repo in g.get_user().get_repos():
+        if repo.name == "fullstack-interview-test":
+            branches = repo.get_branches()
+    bases_list=[]
+    for branch in branches:
+        bases_list.append(branch.name)
+    
+    ids_in_db = {}
+    pullrequests = Pullrequest.query.all()
+    for pr in pullrequests:
+        ids_in_db[pr.id] = pr.status
+    
+
+    for base in bases_list:
+        for repo in g.get_user().get_repos():
+            if repo.name == "fullstack-interview-test":    
+                pulls = repo.get_pulls(state='all', sort='created', base=base)
+                for pr in pulls:
+                    if not pr.id in ids_in_db:
+                        pr_ = Pullrequest(id=pr.id,author=pr.user.login,title=pr.title,description=pr.body,status=pr.state,base=pr.base.ref)
+                        db.session.add(pr_)
+                        print(f"Added PR with id {pr.id} author {pr.user.login} with title {pr.title} and description {pr.body}, state {pr.state}, base {pr.base.ref}")
+                    else:
+                        if ids_in_db[pr.id] != pr.state:
+                            # Updating the state in th db
+                            pull_request = Pullrequest.query.get(pr.id)
+                            pull_request.status = pr.state
+                        else:
+                            pass
+
     pullrequests = Pullrequest.query.all()
     if pullrequests is None:
         return jsonify({"error": "There is not pull requests"}), 422
