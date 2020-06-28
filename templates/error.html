@@ -1,12 +1,12 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    
+    Error
 {% endblock %}
-    {{ pr_title }}
+
 {% block body %}
-    <h1>PR closed</h1>
-    {{message}}</br>
+    <h1>Error</h1>
+    {{ message }}
 
     <a href="{{ url_for('index') }}"> Return to index</a></br>
 
