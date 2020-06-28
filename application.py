@@ -81,6 +81,7 @@ def branch_api(branch_id):
                     commit_obj["timestamp"]=commit.authored_datetime
                     commit_obj["name"]=commit.author.name
                     commit_obj["email"]=commit.author.email
+                    commit_obj["branch_id"]=branch.name
                     # Getting the numer of files changed
                     repo_to_get_files = g.get_user().get_repo(name="fullstack-interview-test")
                     commit_to_get_files = repo_to_get_files.get_commit(sha=commit.hexsha)
@@ -91,5 +92,17 @@ def branch_api(branch_id):
     response.headers['Access-Control-Allow-Origin']='*'   
     return response #jsonify(results=commits_list)
 
-
+@app.route("/branches/<branch_id>/commits/<commit_id>")
+def commit(branch_id,commit_id):
+    """List details about a single commit."""
+    branch_id=branch_id
+    commit_id=commit_id
+    url = "http://127.0.0.1:5000/api/branches/{}".format(branch_id)
+    r = requests.get(url = url)
+    # extracting data in json format 
+    json_response = r.json()
+    commits = json_response['results']
+    for commit in commits:
+        if commit_id == commit["id"]:
+            return render_template("commit.html", commit=commit)
     
