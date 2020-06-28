@@ -7,4 +7,10 @@
 {% block body %}
     <h1>Index</h1>
     <a href="{{ url_for('branches') }}"> Branches</a></br>
+    <a href="{{ url_for('pullrequests') }}"> Pull Requests</a></br>
+    <a href="{{ url_for('pullrequest_form') }}"> Create a new Pull Request</a>
+
+    <h2>API Resources</h2>
+    <a href="{{ url_for('branches_api') }}">GET Branches</a></br>
+    <a href="{{ url_for('pullrequests_api') }}">GET Pull Requests</a>
 {% endblock %}

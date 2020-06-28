@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    PR closed
+{% endblock %}
+
+{% block body %}
+    <h1>PR closed</h1>
+    {{ pr_title }}
+
+    <a href="{{ url_for('index') }}"> Return to index</a></br>
+
+{% endblock %}
