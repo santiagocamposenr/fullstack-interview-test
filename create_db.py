@@ -1,31 +1,49 @@
 import psycopg2
 from psycopg2 import connect, extensions, sql
+import argparse
 
-# Falta ajuste para agregarlos desde cmd
-host = "localhost"
-user = "postgres"
-pw = "postgres"
+def create_db(user,pw, db_name):
+    # Falta ajuste para agregarlos desde cmd
+    host = "localhost"
 
-conn = psycopg2.connect(
-    host = host,
-    user = user,
-    password = pw)
+    conn = psycopg2.connect(
+        host = host,
+        user = user,
+        password = pw)
 
-cur = conn.cursor()
+    cur = conn.cursor()
 
-# get the isolation level for autocommit
-autocommit = extensions.ISOLATION_LEVEL_AUTOCOMMIT
-print ("ISOLATION_LEVEL_AUTOCOMMIT:", extensions.ISOLATION_LEVEL_AUTOCOMMIT)
+    # get the isolation level for autocommit
+    autocommit = extensions.ISOLATION_LEVEL_AUTOCOMMIT
+    print ("ISOLATION_LEVEL_AUTOCOMMIT:", extensions.ISOLATION_LEVEL_AUTOCOMMIT)
 
-# set the isolation level for the connection's cursors
-# will raise ActiveSqlTransaction exception otherwise
-conn.set_isolation_level( autocommit )
+    # set the isolation level for the connection's cursors
+    # will raise ActiveSqlTransaction exception otherwise
+    conn.set_isolation_level( autocommit )
+    sql_line = f"CREATE DATABASE {db_name};"
+    cur.execute(sql_line)
 
-cur.execute('''CREATE DATABASE github_db;''')
+    conn.commit()
 
-conn.commit()
+    conn.close()
+    cur.close()
 
-conn.close()
-cur.close()
+    print('db created')
 
-print('done')
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    parser.add_argument("postgres_user",
+                        help="This is your username in Postgres",
+                        type=str)
+
+    parser.add_argument("postgres_password",
+                        help="This is your password in Postgres",
+                        type=str)
+    
+    parser.add_argument("db_name",
+                        help="This is how you want to name the db",
+                        type=str)
+
+    args = parser.parse_args()
+    create_db(args.postgres_user,args.postgres_password, args.db_name)
+    

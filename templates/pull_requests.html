@@ -15,6 +15,7 @@
             {% if pr.status == "open" %}
                 <form action="{{ url_for('close_pullrequest') }}" method="post">            
                     <input type="hidden"  name="pr_title" placeholder="{{pr.title}}" value="{{pr.title}}">
+                    <input type="hidden"  name="pr_base" placeholder="{{pr.base}}" value="{{pr.base}}">
                     <input type="submit" value="Close Pull Request">
                 </form>
             {% else %}
