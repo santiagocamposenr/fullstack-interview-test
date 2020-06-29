@@ -75,6 +75,7 @@ python main.py postgres_user postgres_password db_name github_user github_passwo
 
 You can use the _python main.py -h_ to get help.
 
-
-
+## Limitations
+Currently the code will work only with the repository "fullstack-interview-test". 
+The repository must exist in the user account that inserts their credentials to execute the code
 
