@@ -1,0 +1,6 @@
+flask
+Flask-SQLAlchemy
+psycopg2-binary
+PyGithub
+gitpython
+requests
