@@ -82,21 +82,24 @@ def create_pullrequest():
     status = request.form.get("status")
 
     # Create the PR
-    pr = repo.create_pull(title=pr_title, body=pr_body,
-                          head=compare, base=base)
-    if status == "merge":
-        try:
-            response = pr.merge()
-            return render_template("success.html", pr_title=pr_title, message="Succesfully merged")
+    try:
+        pr = repo.create_pull(title=pr_title, body=pr_body,
+                              head=compare, base=base)
+        if status == "merge":
+            try:
+                response = pr.merge()
+                return render_template("success.html", pr_title=pr_title, message="Pull Request succesfully merged")
 
-        except Exception as e:
-            # e.data.message
-            return render_template("error.html", message="Ocurrio un error")
-    pr_ = Pullrequest(id=pr.id, author=pr.user.login, title=pr.title,
-                      description=pr.body, status=pr.state, base=pr.base.ref)
-    db.session.add(pr_)
-    db.session.commit()
-    return render_template("success.html", pr_title=pr_title, message="Pull Request created")
+            except:
+                return render_template("error.html", message="Ocurrio un error")
+        pr_ = Pullrequest(id=pr.id, author=pr.user.login, title=pr.title,
+                          description=pr.body, status=pr.state, base=pr.base.ref)
+        db.session.add(pr_)
+        db.session.commit()
+        return render_template("success.html", pr_title=pr_title, message="Pull Request created")
+
+    except:
+        return render_template("error.html", message="Ocurrio un error")
 
 
 @app.route("/branches")

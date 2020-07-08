@@ -24,6 +24,9 @@ def create_db(user, pw, db_name):
     sql_line = f"CREATE DATABASE {db_name};"
     cur.execute(sql_line)
 
+    sql_line = "CREATE DATABASE test_db;"
+    cur.execute(sql_line)
+
     conn.commit()
 
     conn.close()
