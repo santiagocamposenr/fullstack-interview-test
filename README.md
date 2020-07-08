@@ -70,5 +70,18 @@ Example:
 ```
 
 python main.py
+```
+
+### 4. Run tests
+
+To run tests, execute the file tests.py:
 
 ```
+
+python tests.py
+```
+
+## Limitations
+
+Currently the code will work only with the repository "fullstack-interview-test".
+The repository must exist in the user account that inserts their credentials to execute the code
