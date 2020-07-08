@@ -2,6 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
+
 class Pullrequest(db.Model):
     __tablename__ = "pullrequests"
     id = db.Column(db.Integer, primary_key=True)

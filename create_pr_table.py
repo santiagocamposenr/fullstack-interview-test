@@ -1,29 +1,17 @@
 from flask import Flask
 from models import *
-import argparse
+from create_creds import read_creds_file
 
-parser = argparse.ArgumentParser()
-parser.add_argument("postgres_user",
-                    help="This is your username in Postgres",
-                    type=str)
-
-parser.add_argument("postgres_password",
-                    help="This is your password in Postgres",
-                    type=str)
-
-parser.add_argument("db_name",
-                    help="This is how you want to name the db",
-                    type=str)
-
-args = parser.parse_args()
+creds = read_creds_file()
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{args.postgres_user}:{args.postgres_password}@localhost:5432/{args.db_name}" # postgresql://<nombre_usuario>:<password>@<host>:<puerto>/<nombre_basededatos>
+# postgresql://<nombre_usuario>:<password>@<host>:<puerto>/<nombre_basededatos>
+app.config["SQLALCHEMY_DATABASE_URI"] = f"postgresql://{creds['postgres_user']}:{creds['postgres_password']}@localhost:5432/{creds['db_name']}"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db.init_app(app)
 
 if __name__ == "__main__":
-  with app.app_context():
-    # Creating the bd
-    db.create_all()
+    with app.app_context():
+        # Creating the bd
+        db.create_all()
