@@ -85,14 +85,6 @@ class BasicTestCase(unittest.TestCase):
         self.assertEqual(data['results'][0]['branch_id'],
                          "master")
 
-    # def test_api_pullrequests(self):
-    #     tester = app.test_client(self)
-    #     response = tester.get('/api/pullrequests')
-    #     data = json.loads(response.get_data())
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertEqual(data['results'][0]['base'],
-    #                      "master")
-
 
 if __name__ == '__main__':
     with app.app_context():
