@@ -65,10 +65,15 @@ python make_db_schema.py
 
 Once you have the db, run the command python main.py.
 
+
 Example:
 
 ```
 
 python main.py
-
 ```
+
+## Limitations
+Currently the code will work only with the repository "fullstack-interview-test". 
+The repository must exist in the user account that inserts their credentials to execute the code
+
